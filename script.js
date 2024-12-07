@@ -2,7 +2,7 @@
 const tg = window.Telegram.WebApp;
 
 // Настройка Web App
-tg.expand();
+tg.expand(); // Разворачиваем Web App на весь экран
 document.body.style.backgroundColor = tg.themeParams.bg_color || "#ffffff";
 
 // Создание интерфейса
@@ -48,18 +48,13 @@ sendButton.addEventListener("click", () => {
     }
 });
 
-
 // Добавление элементов на страницу
 appDiv.appendChild(textarea);
 appDiv.appendChild(sendButton);
 appDiv.appendChild(outputDiv);
 
-// Слушатель событий для получения ответа от бота (например, через REST API)
-tg.onEvent("dataReceived", (data) => {
-    outputDiv.textContent = `Ответ от бота: ${data}`;
-});
-
 // Поддержка изменения темы Telegram
 tg.onEvent("themeChanged", () => {
     document.body.style.backgroundColor = tg.themeParams.bg_color || "#ffffff";
 });
+
