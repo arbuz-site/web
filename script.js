@@ -40,13 +40,14 @@ outputDiv.textContent = "Ответ от бота будет здесь.";
 sendButton.addEventListener("click", () => {
     const message = textarea.value.trim();
     if (message) {
-        tg.sendData(message); // Отправка данных боту
-        outputDiv.textContent = "Сообщение отправлено боту. Ожидайте ответ...";
-        textarea.value = ""; // Очистка поля ввода
+        tg.sendData(message); // Отправляем данные боту
+        outputDiv.textContent = "Сообщение отправлено. Ожидайте ответ...";
+        textarea.value = ""; // Очистить поле
     } else {
         alert("Введите сообщение!");
     }
 });
+
 
 // Добавление элементов на страницу
 appDiv.appendChild(textarea);
