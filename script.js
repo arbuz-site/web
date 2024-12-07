@@ -1,24 +1,64 @@
-document.getElementById('messageForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const message = document.getElementById('userMessage').value;
-    const chatId = 'YOUR_CHAT_ID'; // Замените на ID чата или используйте ID админа
-    const botToken = '-1002328129351'; // Ваш токен бота
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+// Инициализация Telegram Web App
+const tg = window.Telegram.WebApp;
 
-    const params = new URLSearchParams();
-    params.append('chat_id', chatId);
-    params.append('text', message);
+// Настройка Web App
+tg.expand();
+document.body.style.backgroundColor = tg.themeParams.bg_color || "#ffffff";
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString()
-        });
-        if (!response.ok) throw new Error('Ошибка отправки');
-        alert('Сообщение отправлено!');
-    } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Не удалось отправить сообщение');
+// Создание интерфейса
+const appDiv = document.getElementById("app");
+
+// Поле для ввода сообщения
+const textarea = document.createElement("textarea");
+textarea.placeholder = "Введите сообщение...";
+textarea.style.width = "90%";
+textarea.style.margin = "20px auto";
+textarea.style.display = "block";
+textarea.style.height = "100px";
+
+// Кнопка для отправки сообщения
+const sendButton = document.createElement("button");
+sendButton.textContent = "Отправить боту";
+sendButton.style.display = "block";
+sendButton.style.margin = "10px auto";
+sendButton.style.padding = "10px 20px";
+sendButton.style.cursor = "pointer";
+
+// Поле для вывода ответа от бота
+const outputDiv = document.createElement("div");
+outputDiv.style.width = "90%";
+outputDiv.style.margin = "20px auto";
+outputDiv.style.padding = "10px";
+outputDiv.style.border = "1px solid #ccc";
+outputDiv.style.borderRadius = "5px";
+outputDiv.style.minHeight = "50px";
+outputDiv.style.backgroundColor = "#f9f9f9";
+outputDiv.style.textAlign = "left";
+outputDiv.textContent = "Ответ от бота будет здесь.";
+
+// Логика отправки данных
+sendButton.addEventListener("click", () => {
+    const message = textarea.value.trim();
+    if (message) {
+        tg.sendData(message); // Отправка данных боту
+        outputDiv.textContent = "Сообщение отправлено боту. Ожидайте ответ...";
+        textarea.value = ""; // Очистка поля ввода
+    } else {
+        alert("Введите сообщение!");
     }
+});
+
+// Добавление элементов на страницу
+appDiv.appendChild(textarea);
+appDiv.appendChild(sendButton);
+appDiv.appendChild(outputDiv);
+
+// Слушатель событий для получения ответа от бота (например, через REST API)
+tg.onEvent("dataReceived", (data) => {
+    outputDiv.textContent = `Ответ от бота: ${data}`;
+});
+
+// Поддержка изменения темы Telegram
+tg.onEvent("themeChanged", () => {
+    document.body.style.backgroundColor = tg.themeParams.bg_color || "#ffffff";
 });
