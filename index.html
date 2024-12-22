@@ -2,13 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>Telegram Web App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обмен сообщениями</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #chat {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #messages {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+        #messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #e1f5fe;
+        }
+        #messageInput {
+            width: calc(100% - 100px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #sendMessage {
+            padding: 10px 20px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #sendMessage:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Взаимодействие с ботом</h1>
-    <div id="app"></div>
+    <div id="chat">
+        <ul id="messages"></ul>
+        <input type="text" id="messageInput" placeholder="Введите сообщение..." />
+        <button id="sendMessage">Отправить</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
