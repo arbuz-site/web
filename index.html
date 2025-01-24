@@ -11,11 +11,11 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
+            box-sizing: border-box;
         }
         #chat {
             width: 100%;
@@ -25,6 +25,9 @@
             border-radius: 5px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         #messages {
             list-style: none;
@@ -44,11 +47,12 @@
             background: #e1f5fe;
         }
         #messageInput {
-            width: calc(100% - 100px);
+            width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             margin-right: 10px;
+            box-sizing: border-box;
         }
         #sendMessage {
             padding: 10px 20px;
@@ -57,17 +61,33 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
         }
         #sendMessage:hover {
             background: #0056b3;
+        }
+        @media (min-width: 600px) {
+            #messageInput {
+                width: calc(100% - 120px);
+                display: inline-block;
+            }
+            #sendMessage {
+                width: auto;
+                display: inline-block;
+                margin-top: 0;
+                margin-left: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="chat">
         <ul id="messages"></ul>
-        <input type="text" id="messageInput" placeholder="Введите сообщение..." />
-        <button id="sendMessage">Отправить</button>
+        <div style="display: flex; flex-direction: column;">
+            <input type="text" id="messageInput" placeholder="Введите сообщение..." />
+            <button id="sendMessage">Отправить</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
